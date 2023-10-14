@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import { addBook, addReview } from './action/book'
+import BookList from './component/BookList';
+import AddBook from './component/AddBook';
 
-function App() {
+const App = ({ books, addBook, addReview }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Book Review App</h1>
+      <AddBook addBook={addBook} />
+      <BookList books={books} addReview={addReview} />
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  books: state.books.books,
+});
+
+export default connect(mapStateToProps, { addBook, addReview })(App);
